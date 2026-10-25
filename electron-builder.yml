@@ -1,0 +1,68 @@
+publish: null
+appId: io.github.dumas-lab.tictacnought
+productName: Tic Tac Nought
+copyright: Copyright © 2026 dumas-lab
+directories:
+  output: dist/desktop
+  buildResources: build
+files:
+  - dist/web/**/*
+  - electron/**/*
+  - build/icon.png
+  - package.json
+extraMetadata:
+  main: electron/main.cjs
+asar: true
+compression: normal
+npmRebuild: false
+removePackageScripts: true
+linux:
+  target:
+    - target: AppImage
+      arch:
+        - x64
+    - target: deb
+      arch:
+        - x64
+  category: Game
+  icon: build/icon.png
+  executableName: tic-tac-nought
+  syncDesktopName: true
+  synopsis: A growing tic-tac-toe roguelite
+  description: Tic-tac-toe that keeps growing. Build a run, collect powers, chase the score.
+  desktop:
+    entry:
+      Name: Tic Tac Nought
+      Comment: A growing tic-tac-toe roguelite
+      Categories: Game;
+appImage:
+  artifactName: TicTacNought-${version}-x86_64.${ext}
+deb:
+  artifactName: tic-tac-nought_${version}_${arch}.${ext}
+  packageCategory: games
+  priority: optional
+  maintainer: dumas-lab
+win:
+  target:
+    - target: portable
+      arch:
+        - x64
+    - target: nsis
+      arch:
+        - x64
+  icon: build/icon.ico
+portable:
+  artifactName: TicTacNought-${version}-win-${arch}-portable.${ext}
+  requestExecutionLevel: user
+nsis:
+  artifactName: TicTacNought-${version}-win-${arch}-setup.${ext}
+  oneClick: false
+  perMachine: false
+  allowElevation: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Tic Tac Nought
+  uninstallDisplayName: Tic Tac Nought
+  deleteAppDataOnUninstall: false
+  runAfterFinish: true
