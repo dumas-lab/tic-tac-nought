@@ -1888,8 +1888,12 @@
   function onScreenChange(name) {
     state.currentScreen = name === "game" || name === "options" || name === "menu" ? name : "menu";
     if (name === "menu") {
-      maybeResolvePending().catch(() => {});
-      refreshBoard(false).catch(() => {});
+      // The game saves after switching screens. Defer so the save for this
+      // transition is written before a sync snapshots the local payload.
+      setTimeout(() => {
+        maybeResolvePending().catch(() => {});
+        refreshBoard(false).catch(() => {});
+      }, 0);
     }
     render();
   }
