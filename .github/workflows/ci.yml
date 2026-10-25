@@ -41,6 +41,59 @@ jobs:
       - name: Electron smoke test
         run: xvfb-run -a npm run test:electron
 
+  online:
+    name: Online integration (test project)
+    # Pull requests from forks do not receive repository secrets. Run the
+    # destructive integration suite on main and on manual dispatches instead.
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    concurrency:
+      group: ttn-test-online
+      cancel-in-progress: false
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build test web app
+        env:
+          TTN_TEST_SUPABASE_URL: ${{ secrets.TTN_TEST_SUPABASE_URL }}
+          TTN_TEST_SUPABASE_KEY: ${{ secrets.TTN_TEST_SUPABASE_KEY }}
+        run: npm run build:web:test
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Database, RLS, and RPC tests
+        env:
+          TTN_TEST_SUPABASE_URL: ${{ secrets.TTN_TEST_SUPABASE_URL }}
+          TTN_TEST_SUPABASE_KEY: ${{ secrets.TTN_TEST_SUPABASE_KEY }}
+          TTN_TEST_SERVICE_ROLE_KEY: ${{ secrets.TTN_TEST_SERVICE_ROLE_KEY }}
+        run: npm run test:online
+
+      - name: Edge Function tests
+        env:
+          TTN_TEST_SUPABASE_URL: ${{ secrets.TTN_TEST_SUPABASE_URL }}
+          TTN_TEST_SUPABASE_KEY: ${{ secrets.TTN_TEST_SUPABASE_KEY }}
+          TTN_TEST_SERVICE_ROLE_KEY: ${{ secrets.TTN_TEST_SERVICE_ROLE_KEY }}
+        run: npm run test:functions
+
+      - name: Browser online tests
+        env:
+          TTN_TEST_SUPABASE_URL: ${{ secrets.TTN_TEST_SUPABASE_URL }}
+          TTN_TEST_SUPABASE_KEY: ${{ secrets.TTN_TEST_SUPABASE_KEY }}
+          TTN_TEST_SERVICE_ROLE_KEY: ${{ secrets.TTN_TEST_SERVICE_ROLE_KEY }}
+        run: npm run test:online-browser
+
   windows:
     name: Windows build check
     runs-on: windows-latest

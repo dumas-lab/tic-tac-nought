@@ -1,7 +1,7 @@
 {
   "name": "tic-tac-nought",
   "productName": "Tic Tac Nought",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Tic-tac-toe that keeps growing. Build a run, collect powers, chase the score.",
   "private": true,
   "license": "UNLICENSED",
@@ -18,10 +18,15 @@
   },
   "scripts": {
     "build:web": "node scripts/build-web.mjs",
+    "build:web:test": "node scripts/build-web.mjs --online=test",
+    "build:web:live": "node scripts/build-web.mjs --online=live",
     "start": "npm run build:web && electron .",
     "test:pwa": "node scripts/test-pwa.mjs",
     "test:electron": "node scripts/test-electron.mjs",
     "test:packaged": "node scripts/test-packaged.mjs",
+    "test:online": "node scripts/test-online.mjs",
+    "test:online-browser": "node scripts/test-online-browser.mjs",
+    "test:functions": "node scripts/test-functions.mjs",
     "dist:linux": "npm run build:web && electron-builder --linux AppImage deb --x64",
     "dist:win": "npm run build:web && electron-builder --win portable nsis --x64",
     "checksums": "node scripts/checksums.mjs"

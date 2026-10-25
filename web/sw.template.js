@@ -26,9 +26,17 @@ self.addEventListener("fetch", (event) => {
   if (url.origin !== self.location.origin) return;
 
   if (request.mode === "navigate") {
-    event.respondWith(
-      fetch(request).catch(() => caches.match("./index.html").then((hit) => hit || caches.match("./")))
-    );
+    event.respondWith((async () => {
+      try {
+        const response = await fetch(request);
+        if (response && response.ok) return response;
+      } catch {
+        /* fall through to the cache */
+      }
+      const cached = await caches.match(request);
+      if (cached) return cached;
+      return (await caches.match("./index.html")) || (await caches.match("./")) || Response.error();
+    })());
     return;
   }
 

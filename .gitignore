@@ -4,3 +4,8 @@ dev/tests/.build/
 dev/tests/__pycache__/
 *.log
 .DS_Store
+
+# Local Supabase credentials and build config. Never commit.
+.env*.local
+.env.supabase.local
+supabase/.env.local

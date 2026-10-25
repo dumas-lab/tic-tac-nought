@@ -1,0 +1,63 @@
+name: Keep backend awake
+
+# Supabase free-tier projects pause after about a week without activity. This
+# daily database query keeps both the live and test projects active. The job
+# also fails loudly if a configured backend is unreachable.
+
+on:
+  schedule:
+    - cron: "23 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    name: Ping Supabase projects
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Ping live and test backends
+        env:
+          LIVE_URL: ${{ secrets.TTN_LIVE_SUPABASE_URL }}
+          LIVE_KEY: ${{ secrets.TTN_LIVE_SUPABASE_KEY }}
+          TEST_URL: ${{ secrets.TTN_TEST_SUPABASE_URL }}
+          TEST_KEY: ${{ secrets.TTN_TEST_SUPABASE_KEY }}
+        run: |
+          set -uo pipefail
+
+          ping_backend() {
+            local name="$1"
+            local url="${2%/}"
+            local key="$3"
+            if [ -z "$url" ] || [ -z "$key" ]; then
+              echo "$name backend is not configured; skipping."
+              return 0
+            fi
+
+            local body status
+            body="$(mktemp)"
+            if ! status="$(curl -sS --retry 3 --retry-delay 5 --max-time 20 \
+              -o "$body" -w '%{http_code}' \
+              -X POST "$url/rest/v1/rpc/health" \
+              -H "apikey: $key" \
+              -H "Content-Type: application/json" \
+              -d '{}')"; then
+              echo "$name backend request failed." >&2
+              rm -f "$body"
+              return 1
+            fi
+
+            echo "$name backend HTTP $status: $(cat "$body")"
+            rm -f "$body"
+            if [ "$status" != "200" ]; then
+              echo "$name backend health check failed." >&2
+              return 1
+            fi
+          }
+
+          failed=0
+          ping_backend test "$TEST_URL" "$TEST_KEY" || failed=1
+          ping_backend live "$LIVE_URL" "$LIVE_KEY" || failed=1
+          exit "$failed"

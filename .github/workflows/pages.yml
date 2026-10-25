@@ -29,8 +29,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build web app
-        run: npm run build:web
+      - name: Build live web app
+        env:
+          TTN_LIVE_SUPABASE_URL: ${{ secrets.TTN_LIVE_SUPABASE_URL }}
+          TTN_LIVE_SUPABASE_KEY: ${{ secrets.TTN_LIVE_SUPABASE_KEY }}
+        run: npm run build:web:live
+
+      - name: Verify live backend config
+        run: |
+          test -f dist/web/online-config.js
+          grep -q '"enabled": true' dist/web/online-config.js
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

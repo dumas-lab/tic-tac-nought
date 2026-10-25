@@ -1398,6 +1398,115 @@
     margin-top: 16px;
   }
 
+  /* Online account, global board, and save sync */
+  .online-bar {
+    flex: 0 0 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin: 0 auto;
+    max-width: 900px;
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+  .online-identity {
+    appearance: none;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--text);
+    border-radius: 999px;
+    padding: 4px 10px;
+    font: inherit;
+    cursor: pointer;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .online-identity:hover { border-color: var(--accent); }
+  .online-identity.guest { color: var(--accent); border-color: rgba(255,107,91,0.55); }
+  .online-board-panel { flex: 0 0 280px; min-width: 250px; max-height: 80vh; overflow: auto; }
+  .online-board-row.is-me { background: rgba(255,107,91,0.08); border-radius: 6px; }
+  .online-board-row .lb-name { display: flex; align-items: center; gap: 4px; min-width: 0; }
+  .online-guest-badge {
+    display: inline-block;
+    padding: 1px 4px;
+    border: 1px solid rgba(255,107,91,0.5);
+    border-radius: 4px;
+    color: var(--accent);
+    font-size: 0.52rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    vertical-align: middle;
+  }
+  .online-board-divider {
+    padding: 8px 0 3px;
+    color: var(--muted);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .online-run-panel {
+    width: 100%;
+    max-width: 420px;
+    margin-top: 10px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--surface);
+    padding: 10px 12px;
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+  .online-run-panel p { margin: 0 0 8px; color: var(--text); }
+  .online-run-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+  .online-options-value { color: var(--text); font-size: 0.72rem; }
+  .online-sync-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+  .online-tabs { display: flex; gap: 6px; margin: 12px 0 10px; }
+  .online-tabs button {
+    appearance: none;
+    flex: 1;
+    padding: 6px 8px;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-size: 0.72rem;
+    cursor: pointer;
+  }
+  .online-tabs button.active { color: var(--text); border-color: var(--accent); background: rgba(255,107,91,0.08); }
+  .online-form { display: flex; flex-direction: column; gap: 10px; }
+  .online-form label { display: flex; flex-direction: column; gap: 4px; color: var(--muted); font-size: 0.7rem; }
+  .online-form input,
+  .online-delete input {
+    width: 100%;
+    padding: 7px 8px;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: 0.78rem;
+  }
+  .online-form input:focus,
+  .online-delete input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .online-error { min-height: 1em; margin: 0; color: var(--danger); font-size: 0.7rem; }
+  .online-fineprint { margin: 12px 0 0; color: var(--muted); font-size: 0.65rem; line-height: 1.5; }
+  .online-fineprint a { color: var(--accent); }
+  .online-account-line { margin: 6px 0; color: var(--text); font-size: 0.78rem; line-height: 1.45; }
+  .online-account-label { display: block; color: var(--muted); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1px; }
+  .online-delete { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); }
+  .online-delete p { margin: 0; color: var(--muted); font-size: 0.68rem; }
+  .online-modal { max-width: 430px; }
+  .online-choice-danger { border-color: var(--danger); color: var(--danger); }
+  .online-run-panel .mini { margin: 0; }
+
+  @media (max-width: 760px) {
+    .online-bar { justify-content: center; flex-wrap: wrap; }
+    .online-board-panel { flex-basis: 100%; max-width: 100%; }
+  }
+
   :focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 3px;
@@ -1434,6 +1543,11 @@
   <span id="sinWorkingIndicator" style="position:fixed;top:8px;left:160px;z-index:2000;color:#7bd88f;font-size:0.72rem;display:none;">SIN IS WORKING</span>
   <pre id="devLogPanel" style="position:fixed;top:32px;left:90px;z-index:2000;max-height:200px;max-width:400px;overflow:auto;font-size:0.65rem;background:#0f0c0b;color:#cfe9d3;padding:6px;border-radius:6px;display:none;"></pre>
   <div class="screen" id="menuScreen" style="display:flex;gap:16px;align-items:flex-start;justify-content:center;flex-wrap:wrap;padding:20px;">
+    <div class="online-bar online-only" id="onlineBar" hidden>
+      <button class="online-identity" type="button" id="onlineBarIdentity">Local only</button>
+      <button class="mini ghost" type="button" id="onlineBarAction">Sign in</button>
+    </div>
+
     <details class="foot-panel" id="leaderboardPanel" style="flex:0 0 260px;min-width:240px;max-height:80vh;overflow:auto;">
       <summary>Damage ledger <span id="leaderboardCount"></span></summary>
       <p class="foot-note" id="saveHint"></p>
@@ -1441,8 +1555,15 @@
       <button class="mini ghost" type="button" id="clearLeaderboard">Clear leaderboard</button>
     </details>
 
+    <details class="foot-panel online-board-panel online-only" id="globalBoardPanel" hidden>
+      <summary>Global board <span id="globalBoardCount"></span></summary>
+      <p class="foot-note" id="globalBoardHint"></p>
+      <ol class="leaderboard" id="globalBoardList"></ol>
+      <button class="mini ghost" type="button" id="globalBoardRefresh">Refresh</button>
+    </details>
+
     <div class="menu-card" style="flex:0 0 auto;">
-      <p class="eyebrow">Pre-alpha 0.3</p>
+      <p class="eyebrow">Pre-alpha 0.3.1</p>
       <h1>Tic Tac Nought</h1>
       <p class="menu-tag">Tic-tac-toe that keeps growing. Build a run, collect powers, chase the score.</p>
       <div class="menu-buttons">
@@ -1521,6 +1642,11 @@
             </span>
           </div>
         </div>
+
+        <section class="online-run-panel online-only" id="onlineRunPanel" aria-live="polite" hidden>
+          <p id="onlineRunStatus"></p>
+          <div class="online-run-actions" id="onlineRunActions"></div>
+        </section>
       </div>
 
       <div class="game-side game-side-right">
@@ -1571,6 +1697,21 @@
         </div>
       </div>
       <p class="foot-note">Export moves run progress, the damage ledger, and sound settings between the web/PWA and desktop builds.</p>
+
+      <div class="setting-row online-only" id="onlineOptionsAccountRow" hidden>
+        <label>Account</label>
+        <span class="online-options-value" id="onlineOptionsAccountValue">Not signed in</span>
+        <span class="spacer" style="flex:1;"></span>
+        <button class="mini" type="button" id="onlineOptionsAccountBtn">Sign in</button>
+      </div>
+
+      <div class="setting-row online-only" id="onlineOptionsSyncRow" hidden>
+        <label>Save sync</label>
+        <span class="online-options-value" id="onlineOptionsSyncValue">Sign in to sync saves.</span>
+        <span class="spacer" style="flex:1;"></span>
+        <button class="mini ghost" type="button" id="onlineSyncNow">Sync now</button>
+      </div>
+      <p class="foot-note online-only" id="onlineSyncHint" hidden>Save sync is for accounts only. Guests can submit scores but cannot sync saves.</p>
 
       <p class="foot-note">Score sounds are layered. Higher score bands play their own layers on top of the lower bands. Pick any CC0 clip, or None, for each slot.</p>
 
@@ -1700,13 +1841,87 @@
     </div>
   </div>
 
+  <div class="modal online-only" id="onlineAuthModal" hidden>
+    <div class="modal-card online-modal" role="dialog" aria-modal="true" aria-labelledby="onlineAuthTitle">
+      <div class="options-head" style="margin-bottom:8px;">
+        <h2 id="onlineAuthTitle">Sign in</h2>
+        <span class="spacer"></span>
+        <button class="icon-btn" type="button" id="onlineAuthClose" aria-label="Close">✕</button>
+      </div>
+      <p class="modal-note" id="onlineAuthNote"></p>
+      <div class="online-tabs" id="onlineAuthTabs" role="tablist">
+        <button type="button" id="onlineAuthTabLogin" role="tab" aria-selected="true">Sign in</button>
+        <button type="button" id="onlineAuthTabRegister" role="tab" aria-selected="false">Create account</button>
+      </div>
+      <form class="online-form" id="onlineAuthForm">
+        <label for="onlineHandle">Handle
+          <input id="onlineHandle" name="handle" type="text" maxlength="20" autocomplete="username" autocapitalize="off" spellcheck="false" required>
+        </label>
+        <label for="onlinePassword">Password
+          <input id="onlinePassword" name="password" type="password" maxlength="128" autocomplete="current-password" required>
+        </label>
+        <label for="onlinePasswordConfirm" id="onlineConfirmRow">Confirm password
+          <input id="onlinePasswordConfirm" name="password-confirm" type="password" maxlength="128" autocomplete="new-password">
+        </label>
+        <p class="online-error" id="onlineAuthError" role="alert"></p>
+        <div class="options-actions" style="margin-top:2px;">
+          <button class="mini" type="submit" id="onlineAuthSubmit">Sign in</button>
+          <button class="mini ghost" type="button" id="onlineAuthCancel">Cancel</button>
+        </div>
+      </form>
+      <p class="online-fineprint">No email is required. Accounts use a handle and password. <a href="privacy.html" target="_blank" rel="noopener">Privacy</a> · <a href="terms.html" target="_blank" rel="noopener">Terms</a></p>
+    </div>
+  </div>
+
+  <div class="modal online-only" id="onlineAccountModal" hidden>
+    <div class="modal-card online-modal" role="dialog" aria-modal="true" aria-labelledby="onlineAccountTitle">
+      <div class="options-head" style="margin-bottom:8px;">
+        <h2 id="onlineAccountTitle">Account</h2>
+        <span class="spacer"></span>
+        <button class="icon-btn" type="button" id="onlineAccountClose" aria-label="Close">✕</button>
+      </div>
+      <p class="online-account-line"><span class="online-account-label">Identity</span><span id="onlineAccountIdentity"></span></p>
+      <p class="online-account-line"><span class="online-account-label">Global best</span><span id="onlineAccountBest"></span></p>
+      <p class="online-account-line"><span class="online-account-label">Save sync</span><span id="onlineAccountSync"></span></p>
+      <div class="options-actions" style="margin-top:8px;">
+        <button class="mini" type="button" id="onlineAccountClaim" hidden>Claim guest score</button>
+        <button class="mini ghost" type="button" id="onlineAccountSyncNow">Sync now</button>
+        <button class="mini ghost" type="button" id="onlineAccountSignOut">Sign out</button>
+        <button class="mini ghost" type="button" id="onlineAccountDelete">Delete account</button>
+      </div>
+      <p class="online-error" id="onlineAccountError" role="alert"></p>
+      <div class="online-delete" id="onlineDeleteRow" hidden>
+        <p>Type DELETE to confirm. This removes the account, its global score, and its cloud save. The local save stays on this device.</p>
+        <input id="onlineDeleteInput" type="text" autocomplete="off" aria-label="Type DELETE to confirm">
+        <div class="options-actions" style="margin-top:0;">
+          <button class="mini" type="button" id="onlineDeleteConfirm" style="background:var(--danger);color:#fff;">Delete permanently</button>
+          <button class="mini ghost" type="button" id="onlineDeleteCancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal online-only" id="onlineChoiceModal" hidden>
+    <div class="modal-card online-modal" role="dialog" aria-modal="true" aria-labelledby="onlineChoiceTitle">
+      <h2 id="onlineChoiceTitle">Choose</h2>
+      <p class="modal-note" id="onlineChoiceMessage"></p>
+      <div class="modal-buttons">
+        <button class="ctl" type="button" id="onlineChoicePrimary">Continue</button>
+        <button class="ctl ghost" type="button" id="onlineChoiceSecondary">Upload this device</button>
+        <button class="ctl ghost" type="button" id="onlineChoiceCancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
   <script src="assets/sounds/manifest.js"></script>
 <script src="pwa.js" defer></script>
+  <script src="online-config.js"></script>
+  <script src="online.js"></script>
   <script>
     const STORAGE_KEY = "ttn-state-v2";
     const LEADERBOARD_KEY = "ttn-leaderboard-v1";
     const SOUND_KEY = "ttn-sound-v1";
-    const GAME_VERSION = "0.3.0";
+    const GAME_VERSION = "0.3.1";
     const DEVTOOLS_KEY = "ttn-devtools-v1";
     const WISHLIST_KEY = "ttn-wishlist-v1";
     const LEGACY_STORAGE_KEYS = {
@@ -2860,6 +3075,7 @@
       } catch (err) {
         /* storage unavailable */
       }
+      if (window.TTNOnline) window.TTNOnline.noteLocalChange();
     }
 
     const activeAudio = new Set();
@@ -3724,6 +3940,15 @@
         run.savedName = name;
         saveLeaderboard();
       }
+      if (mode === "endless" && window.TTNOnline) {
+        window.TTNOnline.onRunEnded({
+          id: run.id,
+          score: run.score,
+          round: run.round,
+          boardSize: run.boardSize,
+          level: run.level
+        });
+      }
       saveState();
       render();
     }
@@ -4270,6 +4495,7 @@
     function beginRun(nextMode) {
       cancelAI();
       cancelNext();
+      if (window.TTNOnline) window.TTNOnline.onRunStarted();
       mode = nextMode;
       run = createRun();
       run.snapshotMode = nextMode;
@@ -4597,6 +4823,7 @@
       } catch (err) {
         /* storage unavailable — play on without persistence */
       }
+      if (window.TTNOnline) window.TTNOnline.noteLocalChange();
     }
 
     function loadState() {
@@ -4749,6 +4976,7 @@
       } catch (err) {
         /* storage unavailable */
       }
+      if (window.TTNOnline) window.TTNOnline.noteLocalChange();
     }
 
     function sortLeaderboard() {
@@ -5302,7 +5530,7 @@
       menuScreen.classList.toggle("erupted", !!eruptedSession);
       const eyebrow = menuScreen.querySelector(".eyebrow");
       const tag = menuScreen.querySelector(".menu-tag");
-      if (eyebrow) eyebrow.textContent = eruptedSession ? "Pre-alpha 0.3 — The Body" : "Pre-alpha 0.3";
+      if (eyebrow) eyebrow.textContent = eruptedSession ? "Pre-alpha 0.3.1 — The Body" : "Pre-alpha 0.3.1";
       if (tag) tag.textContent = eruptedSession
         ? "The table is open. Nought is inside it."
         : "Tic-tac-toe that keeps growing. Build a run, collect powers, chase the score.";
@@ -5336,6 +5564,7 @@
       const isVictory = (mode === "story") && run && run.victory;
       const rb = document.getElementById("reset");
       if (rb) rb.textContent = isVictory ? "Return to menu" : (isLost ? "Go again" : "Reset run");
+      if (window.TTNOnline) window.TTNOnline.render();
     }
 
     let confirmAction = null;
@@ -5571,10 +5800,12 @@
       if (lb) lb.hidden = name !== "menu";
       if (name === "menu") renderMenuNote();
       if (name === "options") renderSoundOptions();
+      if (window.TTNOnline) window.TTNOnline.onScreenChange(name);
     }
 
     function startMode(nextMode) {
       mode = nextMode;
+      if (window.TTNOnline) window.TTNOnline.onRunStarted();
       showScreen("game");
       if (nextMode === "endless") {
         const nameInput = document.getElementById("menuName");

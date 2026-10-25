@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#14100f">
+<title>Privacy — Tic Tac Nought</title>
+<style>
+  :root { color-scheme: dark; --bg:#14100f; --surface:#201b19; --line:#322b28; --text:#f3ece8; --muted:#a2958e; --accent:#ff6b5b; }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:32px 20px; background:radial-gradient(120% 90% at 50% 0%, #1d1715 0%, var(--bg) 60%); color:var(--text); font:16px/1.65 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width:760px; margin:0 auto; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:28px 26px; }
+  h1 { margin:0 0 4px; font-size:1.6rem; letter-spacing:-0.02em; }
+  h2 { margin:26px 0 6px; font-size:1.02rem; color:var(--accent); }
+  p, li { color:var(--muted); }
+  strong { color:var(--text); }
+  a { color:var(--accent); }
+  .meta { margin:0 0 18px; font-size:0.78rem; color:var(--muted); }
+  ul { padding-left:20px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:0.8rem; text-decoration:none; }
+  footer { max-width:760px; margin:16px auto 0; color:var(--muted); font-size:0.72rem; text-align:center; }
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="./">← Back to Tic Tac Nought</a>
+  <h1>Privacy</h1>
+  <p class="meta">Pre-alpha 0.3.1 · Last updated 25 October 2026</p>
+
+  <p>Tic Tac Nought is a small pre-alpha game. This page explains what the
+  online parts store and why. Local play works without an account and without
+  contacting the game server.</p>
+
+  <h2>What stays on your device</h2>
+  <p>The game saves run progress, the local damage ledger, and sound settings in
+  your browser or desktop app storage. These stay on your device unless you
+  create an account and choose to upload a save. Guests never sync saves.</p>
+
+  <h2>Accounts</h2>
+  <p>Accounts use a <strong>handle and password, with no email address</strong>.
+  We store the handle, a password hash managed by our authentication provider,
+  your best Endless score and run details, submission timestamps, account
+  status, and — only if you use save sync — the save payload you upload. The
+  handle and best score are shown publicly on the global board.</p>
+
+  <h2>Guests</h2>
+  <p>If you submit a score without creating an account, we create an anonymous
+  guest identity with an auto-generated name such as <code>Guest-7F3K2Q</code>.
+  We store that identity, the generated name, your best score and run details,
+  and submission timestamps. Guest scores appear on the global board with a
+  <strong>GUEST</strong> badge. Guest saves are never uploaded.</p>
+
+  <h2>Global leaderboard</h2>
+  <p>The board is public. It shows a handle or guest name, guest status, score,
+  round, board size, level, and rank. It does not show your password, email (we
+  do not collect one), device ID, or save contents.</p>
+
+  <h2>Rate limiting and abuse prevention</h2>
+  <p>Account creation and guest claiming are rate-limited using a salted hash
+  of your IP address. The raw address is not stored, and these records are
+  deleted after seven days. Scores and saves may be reviewed or removed to
+  keep the pre-alpha board usable. We do not use analytics, advertising, or
+  tracking cookies.</p>
+
+  <h2>Who processes data</h2>
+  <ul>
+    <li><strong>GitHub Pages</strong> serves the web/PWA build. GitHub receives
+    standard request logs such as IP address and user agent under its own
+    privacy policy.</li>
+    <li><strong>Supabase</strong> hosts authentication, the database, and the
+    small server functions. The projects are hosted in the EU
+    (eu-central-1).</li>
+  </ul>
+
+  <h2>Retention and deletion</h2>
+  <p>Account data remains until you delete the account. You can delete it from
+  the in-game Account panel; this removes the account, its global score, and
+  its cloud save. The local save on your device is not deleted. Guest identities
+  can also be deleted from the Account panel. Rate-limit hashes expire after
+  seven days.</p>
+
+  <h2>Your choices</h2>
+  <p>You can play entirely offline and never create an account or submit a
+  score. You can sign out, delete an account, and export or import your local
+  save from Options. Because accounts have no email address, password resets are
+  handled manually by the maintainer; open an issue at
+  <a href="https://github.com/dumas-lab/tic-tac-nought/issues">github.com/dumas-lab/tic-tac-nought/issues</a>
+  if you need help.</p>
+
+  <h2>Children</h2>
+  <p>The game is not directed at children under 13, and we do not knowingly
+  collect personal information from them.</p>
+
+  <h2>Changes</h2>
+  <p>This is a pre-alpha project, so this policy may change as the online
+  features change. The updated date at the top will change when it does.</p>
+
+  <p>Questions: <a href="https://github.com/dumas-lab/tic-tac-nought/issues">open an issue</a>.</p>
+</main>
+<footer>Tic Tac Nought · pre-alpha · <a href="terms.html">Terms</a></footer>
+</body>
+</html>
