@@ -314,13 +314,24 @@ try {
 
   const secondPage = await newPage();
   await signIn(secondPage, accountHandle, password);
-  await secondPage.waitForTimeout(1500);
+  try {
+    await secondPage.waitForFunction(
+      (expected) => window.TTNOnline?.debug?.sync()?.revision === expected,
+      pushed.revision,
+      { timeout: 10000 }
+    );
+  } catch {
+    /* report the actual state below */
+  }
   const pulled = await secondPage.evaluate(() => ({
     sync: window.TTNOnline.debug.sync(),
     state: localStorage.getItem("ttn-state-v2") ? "present" : "missing"
   }));
   assert(pulled.state === "present", "cloud save is written to the second device");
-  assert(pulled.sync && pulled.sync.revision === pushed.revision, "second device receives the cloud revision");
+  assert(
+    pulled.sync && pulled.sync.revision === pushed.revision,
+    `second device receives the cloud revision (expected ${pushed.revision}, got ${pulled.sync ? pulled.sync.revision : "none"})`
+  );
 
   await accountPage.evaluate(() => {
     const state = JSON.parse(localStorage.getItem("ttn-state-v2"));
