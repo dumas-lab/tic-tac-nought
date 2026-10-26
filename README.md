@@ -1,6 +1,6 @@
 # Tic Tac Nought
 
-**Pre-alpha 0.3.1 — The Body** — a tic-tac-toe roguelite about the thing that kept O.
+**Pre-alpha 0.3.2 — The Body** — a tic-tac-toe roguelite about the thing that kept O.
 
 Play in the browser: **https://dumas-lab.github.io/tic-tac-nought/**
 
@@ -199,6 +199,7 @@ online.js                   optional accounts, guest submission, board, sync
 online-config.js            local fallback config; the build replaces it in dist
 privacy.html                privacy page (copied to dist/web)
 terms.html                  terms page (copied to dist/web)
+assets/fonts/               IBM Plex woff2 files (OFL) and license
 assets/sounds/manifest.js   sound library for the picker
 assets/sounds/kenney/       100 CC0 interface clips
 assets/sounds/wobbleboxx/   13 CC0 level-up/coin clips
@@ -206,7 +207,7 @@ assets/sounds/CREDITS.txt   licenses and default layering
 web/manifest.json           PWA manifest
 web/pwa.js                  service-worker registration
 web/sw.template.js          service-worker template
-web/icons/                  generated PWA and Electron icons
+web/icons/                  icon.svg / icon-maskable.svg masters and generated PNG/ICO sizes
 electron/main.cjs           hardened Electron wrapper (`app://` origin)
 scripts/build-web.mjs       copies the game into dist/web + CSP + sw.js
 scripts/admin.mjs           moderation and account CLI

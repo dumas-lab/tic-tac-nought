@@ -1,6 +1,49 @@
 # Tic Tac Nought — Changelog
 
-## 0.3.1 "The Body" — Online (current build)
+## 0.3.2 "The Body" — Biomechanical terminal (current build)
+
+A visual release. Rules, scoring, saves, the damage ledger, export/import, and
+the online behavior in 0.3.1 are unchanged. The save format is unchanged.
+
+### Visual system
+- Direction: a biomechanical terminal. Amber CRT phosphor on near-black, with
+  rust for threat and accents.
+- Palette lives in CSS tokens (`--bg`, `--text`, `--amber`, `--rust`,
+  `--accent`, `--danger`, `--muted`). The rarity colors and the membrane/bruise
+  tones keep their meaning.
+- Typography: **IBM Plex Sans Condensed** for UI text and **IBM Plex Mono** for
+  telemetry labels such as the eyebrow, mode, chips, and counters. Both are
+  self-hosted from `assets/fonts/` (SIL Open Font License; see
+  `assets/fonts/LICENSE-IBM-PLEX.txt`). The game makes no third-party font
+  requests.
+- **Heavy CRT treatment on the menu only**: scanlines, a vignette, and a slow
+  flicker. The effect turns off with `prefers-reduced-motion`. Gameplay and
+  Options use the clean background.
+- X and O stay letters. The art contains no religious iconography.
+
+### Nought bust (placeholder art)
+- A bust silhouette appears as a faint backdrop behind the board **only during
+  the Nought round** of Story and Endless. It is hidden everywhere else.
+- The art is an SVG placeholder inside `index.html`. It is a shipping placeholder
+  and can be replaced with final art without changing game code.
+
+### App icon (placeholder art)
+- The app icon is a Nought eye. Masters are `web/icons/icon.svg` and
+  `web/icons/icon-maskable.svg`. PNG sizes are generated from them.
+- The web manifest lists the SVG icons first and keeps PNG fallbacks. The
+  favicon links to the SVG.
+- Electron builds use the same artwork: `build/icon.png` (1024 px) and
+  `build/icon.ico`.
+- The icons are placeholders. Replace the SVG masters and rerun the icon export
+  to change them.
+
+### Compatibility
+- No behavior changes. Story, Endless, VS, the online board, save sync, and
+  desktop builds behave as in 0.3.1.
+- The version label reads `Pre-alpha 0.3.2` in the menu, the legal pages, and
+  the online client.
+
+## 0.3.1 "The Body" — Online
 
 Everything in 0.3 remains unless this section changes it. 0.3.1 adds optional
 online accounts, guest score submission, the global Endless damage board, and

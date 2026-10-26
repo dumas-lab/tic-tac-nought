@@ -4,29 +4,66 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="Tic Tac Nought">
-<meta name="theme-color" content="#14100f">
+<meta name="theme-color" content="#0c0806">
 <meta name="color-scheme" content="dark">
 <link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 <title>Tic Tac Nought</title>
 <style>
+  @font-face {
+    font-family: "IBM Plex Sans Condensed";
+    src: url("assets/fonts/ibm-plex-sans-condensed-latin-400-normal.woff2") format("woff2");
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: "IBM Plex Sans Condensed";
+    src: url("assets/fonts/ibm-plex-sans-condensed-latin-500-normal.woff2") format("woff2");
+    font-weight: 500; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: "IBM Plex Sans Condensed";
+    src: url("assets/fonts/ibm-plex-sans-condensed-latin-600-normal.woff2") format("woff2");
+    font-weight: 600; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: "IBM Plex Mono";
+    src: url("assets/fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: "IBM Plex Mono";
+    src: url("assets/fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2");
+    font-weight: 500; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: "IBM Plex Mono";
+    src: url("assets/fonts/ibm-plex-mono-latin-600-normal.woff2") format("woff2");
+    font-weight: 600; font-style: normal; font-display: swap;
+  }
+
   :root {
-    --bg: #14100f;
-    --surface: #201b19;
-    --line: #322b28;
-    --text: #f3ece8;
-    --muted: #a2958e;
-    --accent: #ff6b5b;
+    /* Biomechanical terminal: amber CRT phosphor on black, rust for threat. */
+    --bg: #0c0806;
+    --surface: #19110c;
+    --line: #3a2818;
+    --text: #f4d9a6;
+    --muted: #a8875c;
+    --amber: #ffb000;
+    --rust: #b8491f;
+    --accent: #d8642c;
     --blue: #7aa2f7;
-    --common: #f3ece8;
-    --uncommon: #7bd88f;
+    --common: #f4d9a6;
+    --uncommon: #9ccc65;
     --rare: #7aa2f7;
-    --danger: #ff6b5b;
+    --danger: #e0482e;
     --membrane: #2a3520;
     --bruise: #1a120f;
     --bile: #d7d8a0;
+    --font-ui: "IBM Plex Sans Condensed", "Arial Narrow", system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   }
 
   * { box-sizing: border-box; }
@@ -42,9 +79,9 @@
     place-items: center;
     padding: 32px 20px;
     background:
-      radial-gradient(120% 90% at 50% 0%, #1d1715 0%, var(--bg) 60%);
+      radial-gradient(120% 90% at 50% 0%, #1a110c 0%, var(--bg) 60%);
     color: var(--text);
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-family: var(--font-ui);
     -webkit-font-smoothing: antialiased;
   }
 
@@ -1425,14 +1462,14 @@
     white-space: nowrap;
   }
   .online-identity:hover { border-color: var(--accent); }
-  .online-identity.guest { color: var(--accent); border-color: rgba(255,107,91,0.55); }
+  .online-identity.guest { color: var(--accent); border-color: rgba(216,100,44,0.55); }
   .online-board-panel { flex: 0 0 280px; min-width: 250px; max-height: 80vh; overflow: auto; }
-  .online-board-row.is-me { background: rgba(255,107,91,0.08); border-radius: 6px; }
+  .online-board-row.is-me { background: rgba(216,100,44,0.08); border-radius: 6px; }
   .online-board-row .lb-name { display: flex; align-items: center; gap: 4px; min-width: 0; }
   .online-guest-badge {
     display: inline-block;
     padding: 1px 4px;
-    border: 1px solid rgba(255,107,91,0.5);
+    border: 1px solid rgba(216,100,44,0.5);
     border-radius: 4px;
     color: var(--accent);
     font-size: 0.52rem;
@@ -1475,7 +1512,7 @@
     font-size: 0.72rem;
     cursor: pointer;
   }
-  .online-tabs button.active { color: var(--text); border-color: var(--accent); background: rgba(255,107,91,0.08); }
+  .online-tabs button.active { color: var(--text); border-color: var(--accent); background: rgba(216,100,44,0.08); }
   .online-form { display: flex; flex-direction: column; gap: 10px; }
   .online-form label { display: flex; flex-direction: column; gap: 4px; color: var(--muted); font-size: 0.7rem; }
   .online-form input,
@@ -1506,6 +1543,61 @@
     .online-bar { justify-content: center; flex-wrap: wrap; }
     .online-board-panel { flex-basis: 100%; max-width: 100%; }
   }
+
+  /* Telemetry labels use the mono face; body copy stays condensed sans. */
+  .eyebrow,
+  .game-mode,
+  .score-caption,
+  .xp-level,
+  .xp-next,
+  .chip,
+  .chip b,
+  .online-account-label,
+  .online-guest-badge {
+    font-family: var(--font-mono);
+  }
+
+  /* Heavy CRT treatment: the menu only. Gameplay stays clean. */
+  #menuScreen.crt { text-shadow: 0 0 6px rgba(255,176,0,0.22); }
+  #menuScreen.crt::before,
+  #menuScreen.crt::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 900;
+  }
+  #menuScreen.crt::before {
+    background: repeating-linear-gradient(to bottom, rgba(255,176,0,0.07) 0 1px, transparent 1px 3px);
+    mix-blend-mode: screen;
+  }
+  #menuScreen.crt::after {
+    background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.62) 100%);
+    animation: crt-flicker 7s infinite steps(70, end);
+  }
+  @keyframes crt-flicker {
+    0%, 100% { opacity: 1; }
+    48% { opacity: 1; }
+    50% { opacity: 0.9; }
+    52% { opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #menuScreen.crt::after { animation: none; }
+  }
+
+  /* Nought bust: placeholder art, shown only during the Nought round. */
+  .nought-bust {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: min(560px, 78vh);
+    transform: translate(-50%, -50%);
+    margin: 0;
+    opacity: 0.14;
+    pointer-events: none;
+    z-index: -1;
+  }
+  .nought-bust svg { display: block; width: 100%; height: auto; }
 
   :focus-visible {
     outline: 2px solid var(--accent);
@@ -1542,7 +1634,7 @@
   <button class="ctl ghost persistent-reset" id="devToolsBtn" type="button" title="Dev tools" style="position:fixed;top:8px;left:70px;z-index:2000;font-size:0.72rem;padding:4px 8px;display:none;">Dev tools</button>
   <span id="sinWorkingIndicator" style="position:fixed;top:8px;left:160px;z-index:2000;color:#7bd88f;font-size:0.72rem;display:none;">SIN IS WORKING</span>
   <pre id="devLogPanel" style="position:fixed;top:32px;left:90px;z-index:2000;max-height:200px;max-width:400px;overflow:auto;font-size:0.65rem;background:#0f0c0b;color:#cfe9d3;padding:6px;border-radius:6px;display:none;"></pre>
-  <div class="screen" id="menuScreen" style="display:flex;gap:16px;align-items:flex-start;justify-content:center;flex-wrap:wrap;padding:20px;">
+  <div class="screen crt" id="menuScreen" style="display:flex;gap:16px;align-items:flex-start;justify-content:center;flex-wrap:wrap;padding:20px;">
     <div class="online-bar online-only" id="onlineBar" hidden>
       <button class="online-identity" type="button" id="onlineBarIdentity">Local only</button>
       <button class="mini ghost" type="button" id="onlineBarAction">Sign in</button>
@@ -1563,7 +1655,7 @@
     </details>
 
     <div class="menu-card" style="flex:0 0 auto;">
-      <p class="eyebrow">Pre-alpha 0.3.1</p>
+      <p class="eyebrow">Pre-alpha 0.3.2</p>
       <h1>Tic Tac Nought</h1>
       <p class="menu-tag">Tic-tac-toe that keeps growing. Build a run, collect powers, chase the score.</p>
       <div class="menu-buttons">
@@ -1611,6 +1703,21 @@
 
         <p class="status" id="status" aria-live="polite" style="width:100%;"></p>
 
+        <figure class="nought-bust" id="noughtBust" aria-hidden="true" hidden>
+          <svg viewBox="0 0 240 300" focusable="false">
+            <defs>
+              <linearGradient id="noughtShade" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffb000"/>
+                <stop offset="1" stop-color="#b8491f"/>
+              </linearGradient>
+            </defs>
+            <path d="M120 18c-46 0-78 34-78 84 0 22 6 40 14 56-10 10-18 26-18 46v40c0 10 6 16 16 16h152c10 0 16-6 16-16v-40c0-20-8-36-18-46 8-16 14-34 14-56 0-50-32-84-78-84z" fill="none" stroke="url(#noughtShade)" stroke-width="3"/>
+            <path d="M70 120h100M78 150h84M90 180h60" stroke="#ffb000" stroke-width="2" opacity="0.6"/>
+            <circle cx="96" cy="112" r="10" fill="none" stroke="#ffb000" stroke-width="3"/>
+            <circle cx="144" cy="112" r="10" fill="none" stroke="#ffb000" stroke-width="3"/>
+            <path d="M120 130v40M108 178h24" stroke="#b8491f" stroke-width="3"/>
+          </svg>
+        </figure>
         <div class="board" id="board" role="group" aria-label="Tic Tac Nought board"></div>
 
         <ul class="scoreboard" id="scoreboard" aria-label="Classic scoreboard" hidden>
@@ -1921,7 +2028,7 @@
     const STORAGE_KEY = "ttn-state-v2";
     const LEADERBOARD_KEY = "ttn-leaderboard-v1";
     const SOUND_KEY = "ttn-sound-v1";
-    const GAME_VERSION = "0.3.1";
+    const GAME_VERSION = "0.3.2";
     const DEVTOOLS_KEY = "ttn-devtools-v1";
     const WISHLIST_KEY = "ttn-wishlist-v1";
     const LEGACY_STORAGE_KEYS = {
@@ -5530,7 +5637,7 @@
       menuScreen.classList.toggle("erupted", !!eruptedSession);
       const eyebrow = menuScreen.querySelector(".eyebrow");
       const tag = menuScreen.querySelector(".menu-tag");
-      if (eyebrow) eyebrow.textContent = eruptedSession ? "Pre-alpha 0.3.1 — The Body" : "Pre-alpha 0.3.1";
+      if (eyebrow) eyebrow.textContent = eruptedSession ? "Pre-alpha 0.3.2 — The Body" : "Pre-alpha 0.3.2";
       if (tag) tag.textContent = eruptedSession
         ? "The table is open. Nought is inside it."
         : "Tic-tac-toe that keeps growing. Build a run, collect powers, chase the score.";
@@ -5550,7 +5657,15 @@
       }
     }
 
+    function renderNoughtBust() {
+      const bust = document.getElementById("noughtBust");
+      if (!bust) return;
+      const show = screen === "game" && (mode === "story" || mode === "endless") && isNoughtRound();
+      bust.hidden = !show;
+    }
+
     function render() {
+      renderNoughtBust();
       renderGameTop();
       renderBoard();
       renderStatus();

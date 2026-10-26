@@ -1,5 +1,5 @@
 /*
- * Tic Tac Nought online client for 0.3.1.
+ * Tic Tac Nought online client for 0.3.2.
  *
  * The game itself stays local-first. This file adds optional accounts, guest
  * score submission, the global Endless board, and account-only save sync.
@@ -13,7 +13,7 @@
       enabled: false,
       supabaseUrl: "",
       supabaseAnonKey: "",
-      version: "0.3.1"
+      version: "0.3.2"
     },
     window.TTN_ONLINE_CONFIG || {}
   );
@@ -506,7 +506,7 @@
     return {
       app: "tic-tac-nought",
       schema: 1,
-      gameVersion: String(config.version || "0.3.1"),
+      gameVersion: String(config.version || "0.3.2"),
       data
     };
   }

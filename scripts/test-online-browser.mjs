@@ -1,5 +1,5 @@
 /*
- * Browser-level online tests for 0.3.1.
+ * Browser-level online tests for 0.3.2.
  *
  * Run against a test build:
  *   npm run build:web:test
@@ -256,7 +256,7 @@ try {
       route.fulfill({
         status: 200,
         contentType: "application/javascript; charset=utf-8",
-        body: 'window.TTN_ONLINE_CONFIG = Object.freeze({ enabled: false, supabaseUrl: "", supabaseAnonKey: "", version: "0.3.1" });'
+        body: 'window.TTN_ONLINE_CONFIG = Object.freeze({ enabled: false, supabaseUrl: "", supabaseAnonKey: "", version: "0.3.2" });'
       })
     );
     await page.goto(base, { waitUntil: "networkidle" });
