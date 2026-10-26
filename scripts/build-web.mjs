@@ -100,7 +100,7 @@ await writeFile(
 );
 
 await mkdir(path.join(dist, "icons"), { recursive: true });
-for (const icon of ["icon-32.png", "icon-180.png", "icon-192.png", "icon-512.png", "icon-maskable-512.png"]) {
+for (const icon of ["icon.svg", "icon-maskable.svg", "icon-32.png", "icon-180.png", "icon-192.png", "icon-512.png", "icon-maskable-512.png"]) {
   await cp(path.join(root, "web", "icons", icon), path.join(dist, "icons", icon));
 }
 

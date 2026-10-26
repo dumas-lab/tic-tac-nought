@@ -1,6 +1,6 @@
 # Tic Tac Nought
 
-**Pre-alpha 0.3.1 — The Body** — a tic-tac-toe roguelite about the thing that kept O.
+**Pre-alpha 0.3.3 — The Body** — a tic-tac-toe roguelite about the thing that kept O.
 
 Play in the browser: **https://dumas-lab.github.io/tic-tac-nought/**
 
@@ -10,7 +10,7 @@ first visit.
 
 The web/PWA build also has optional online accounts, a global Endless damage
 board, and account-only save sync. Local play never requires an account or a
-network connection. The Linux and Windows builds stay local-only in 0.3.1.
+network connection. The Linux and Windows builds stay local-only in 0.3.3.
 
 ## Play
 
@@ -44,7 +44,7 @@ Leaving a run with **Menu** does not end it. Reloading the page returns to the m
 
 Online is optional and pre-alpha. Story, VS, the damage ledger, and export/import
 work without an account or a network connection. The desktop builds do not
-include the online UI in 0.3.1.
+include the online UI in 0.3.3.
 
 - **Accounts** — a handle and password, with no email. Handles are 3–20 letters,
   numbers, underscores, or hyphens; passwords are 8–128 characters. Sign in,
@@ -199,6 +199,7 @@ online.js                   optional accounts, guest submission, board, sync
 online-config.js            local fallback config; the build replaces it in dist
 privacy.html                privacy page (copied to dist/web)
 terms.html                  terms page (copied to dist/web)
+assets/fonts/               Cinzel and Source Sans 3 woff2 files (OFL) and license
 assets/sounds/manifest.js   sound library for the picker
 assets/sounds/kenney/       100 CC0 interface clips
 assets/sounds/wobbleboxx/   13 CC0 level-up/coin clips
@@ -206,7 +207,7 @@ assets/sounds/CREDITS.txt   licenses and default layering
 web/manifest.json           PWA manifest
 web/pwa.js                  service-worker registration
 web/sw.template.js          service-worker template
-web/icons/                  generated PWA and Electron icons
+web/icons/                  icon.svg / icon-maskable.svg masters and generated PNG/ICO sizes
 electron/main.cjs           hardened Electron wrapper (`app://` origin)
 scripts/build-web.mjs       copies the game into dist/web + CSP + sw.js
 scripts/admin.mjs           moderation and account CLI
@@ -344,8 +345,7 @@ only happens after approval.
   to work, and the daily health ping reduces the chance of a pause.
 - Accounts have no email address, so password resets are handled manually by
   the maintainer.
-- Desktop 0.3.1 is local-only. The online UI is functional but not the final
-  visual treatment; the biomechanical-terminal rework is planned for 0.3.2.
+- Desktop 0.3.3 is local-only.
 
 ## Dev tests
 

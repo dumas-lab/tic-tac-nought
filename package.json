@@ -1,7 +1,7 @@
 {
   "name": "tic-tac-nought",
   "productName": "Tic Tac Nought",
-  "version": "0.3.1",
+  "version": "0.3.3",
   "description": "Tic-tac-toe that keeps growing. Build a run, collect powers, chase the score.",
   "private": true,
   "license": "UNLICENSED",

@@ -75,7 +75,7 @@ try {
     };
   });
   if (!swState.active) throw new Error("service worker is not active");
-  if (!swState.caches.includes("ttn-0.3.1")) throw new Error("expected cache was not created");
+  if (!swState.caches.includes("ttn-0.3.3")) throw new Error("expected cache was not created");
 
   await page.click('[data-start="endless"]');
   await page.waitForSelector("#gameScreen:not([hidden])");

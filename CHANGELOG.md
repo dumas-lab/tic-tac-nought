@@ -1,6 +1,52 @@
 # Tic Tac Nought — Changelog
 
-## 0.3.1 "The Body" — Online (current build)
+## 0.3.3 "The Body" — Carved wood (current build)
+
+A visual overhaul. Rules, scoring, saves, the damage ledger, export/import, the
+online behavior, and the save format are unchanged from 0.3.1.
+
+### Look and feel
+- High fantasy, carved in wood, and infected by Nought's biomechanical growth.
+  Magic is not in play yet. The setting hints at where it could go later.
+- Palette: walnut-dark background, carved wood panels, gilt trim, parchment text,
+  rust for X, steel for O, and bile-green infection. Colors live in CSS tokens.
+- Type: **Cinzel** for carved headings and mode names, and **Source Sans 3** for
+  body text and labels. Both are self-hosted from `assets/fonts/` under the SIL
+  Open Font License (see `assets/fonts/LICENSE-FONTS.txt`). The game makes no
+  third-party font requests.
+- The board is a carved wooden tabletop with recessed cell sockets. X and O stay
+  letters.
+- The menu is wooden planks. The Endless plank is gilt. Eruption turns the menu
+  infected: bile veins run through the wood and the planks.
+- Infected boards show bile veins through the wood. Eaten cells read as infected
+  tissue.
+- The terminal and CRT look from the earlier direction is removed.
+
+### Sin medallions and idle motion
+- Each sin has a carved medallion with its own glyph. The medallion appears beside
+  the board during its round and in the Book of Decay.
+- Medium motion: a random sin medallion idles about every 4 to 11 seconds, for
+  about 2 seconds. Each sin has its own idle: Pride sways, Greed's jaw works,
+  Lust turns slowly, Envy blinks, Gluttony swells, Wrath jitters, and Sloth drifts.
+- Idle motion turns off when the system requests reduced motion.
+
+### Nought bust (placeholder art)
+- A bust backdrop appears behind the board only in the Nought round of Story and
+  Endless. It is hidden everywhere else.
+
+### App icon (placeholder art)
+- A carved-wood tile with the Nought eye, a gilt rim, and a bile iris. The SVG
+  masters are `web/icons/icon.svg` and `icon-maskable.svg`. PNG and ICO sizes are
+  generated from them, and the Electron builds use the same artwork.
+- The web manifest lists the SVG icons first with PNG fallbacks. The favicon
+  links to the SVG.
+
+### Compatibility
+- The version label reads `Pre-alpha 0.3.3` in the menu, the legal pages, and
+  the online client.
+- The earlier terminal pass (planned 0.3.2) was never released.
+
+## 0.3.1 "The Body" — Online
 
 Everything in 0.3 remains unless this section changes it. 0.3.1 adds optional
 online accounts, guest score submission, the global Endless damage board, and
@@ -185,8 +231,7 @@ builds stay local-only.
 - Desktop 0.3.1 has no online features.
 - Browser storage can be cleared by the browser or the user. Export saves for
   anything important.
-- The online UI is functional for 0.3.1. The biomechanical-terminal visual
-  rework is planned for 0.3.2.
+- The online UI is functional for 0.3.1. The visual overhaul shipped in 0.3.3.
 
 ## 0.3 "The Body" (previous build)
 

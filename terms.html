@@ -3,14 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#14100f">
+<meta name="theme-color" content="#120c08">
 <title>Terms — Tic Tac Nought</title>
 <style>
-  :root { color-scheme: dark; --bg:#14100f; --surface:#201b19; --line:#322b28; --text:#f3ece8; --muted:#a2958e; --accent:#ff6b5b; }
+  @font-face { font-family:"Cinzel"; src:url("assets/fonts/cinzel-latin-600-normal.woff2") format("woff2"); font-weight:600; font-display:swap; }
+  @font-face { font-family:"Source Sans 3"; src:url("assets/fonts/source-sans-3-latin-400-normal.woff2") format("woff2"); font-weight:400; font-display:swap; }
+  :root { color-scheme: dark; --bg:#120c08; --surface:#241910; --line:#4a3320; --text:#efe0c4; --muted:#b29a74; --accent:#d9a54a; }
   * { box-sizing: border-box; }
-  body { margin:0; padding:32px 20px; background:radial-gradient(120% 90% at 50% 0%, #1d1715 0%, var(--bg) 60%); color:var(--text); font:16px/1.65 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  body { margin:0; padding:32px 20px; background:radial-gradient(120% 90% at 50% 0%, #2a1c12 0%, var(--bg) 60%); color:var(--text); font:16px/1.65 "Source Sans 3", system-ui, sans-serif; }
   main { max-width:760px; margin:0 auto; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:28px 26px; }
-  h1 { margin:0 0 4px; font-size:1.6rem; letter-spacing:-0.02em; }
+  h1 { margin:0 0 4px; font-family:"Cinzel", Georgia, serif; font-size:1.7rem; letter-spacing:0.02em; }
   h2 { margin:26px 0 6px; font-size:1.02rem; color:var(--accent); }
   p, li { color:var(--muted); }
   strong { color:var(--text); }
@@ -25,7 +27,7 @@
 <main>
   <a class="back" href="./">← Back to Tic Tac Nought</a>
   <h1>Terms</h1>
-  <p class="meta">Pre-alpha 0.3.1 · Last updated 25 October 2026</p>
+  <p class="meta">Pre-alpha 0.3.3 · Last updated 25 October 2026</p>
 
   <p>These terms cover the pre-alpha web/PWA game, its optional online accounts,
   and the global Endless damage board. By using those features you agree to
