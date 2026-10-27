@@ -14,7 +14,11 @@ function wireErrors(page) {
 }
 
 async function launch() {
-  const args = process.platform === "linux" ? ["--no-sandbox", "."] : ["."];
+  // The smoke test runs the DOM fallback. Keep the headless CI compositor off
+  // the GPU so shared-image allocation cannot stall the first window.
+  const args = process.platform === "linux"
+    ? ["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage", "."]
+    : ["."];
   const app = await electron.launch({
     args,
     cwd: process.cwd(),

@@ -16,7 +16,12 @@ let app;
 try {
   app = await electron.launch({
     executablePath,
-    args: process.platform === "linux" ? ["--no-sandbox"] : [],
+    // The packaged smoke test drives the DOM fallback, so keep the compositor
+    // off the GPU. Headless CI runners otherwise hang on shared-image
+    // allocation before the first window is ready.
+    args: process.platform === "linux"
+      ? ["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"]
+      : [],
     env: { ...process.env, TTR_USER_DATA_DIR: userDataDir, TTR_TEST: "1" }
   });
 

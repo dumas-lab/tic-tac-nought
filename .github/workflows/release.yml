@@ -45,7 +45,7 @@ jobs:
         run: npm run dist:linux
 
       - name: Smoke-test packaged app
-        run: xvfb-run -a npm run test:packaged
+        run: xvfb-run -a -s "-screen 0 1440x900x24" npm run test:packaged
 
       - name: Upload Linux artifacts
         uses: actions/upload-artifact@v4
