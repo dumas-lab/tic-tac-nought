@@ -1,7 +1,7 @@
 {
   "name": "tic-tac-nought",
   "productName": "Tic Tac Nought",
-  "version": "0.3.1",
+  "version": "0.3.3",
   "description": "Tic-tac-toe that keeps growing. Build a run, collect powers, chase the score.",
   "private": true,
   "license": "UNLICENSED",
@@ -17,9 +17,9 @@
     "node": ">=22.12"
   },
   "scripts": {
-    "build:web": "node scripts/build-web.mjs",
-    "build:web:test": "node scripts/build-web.mjs --online=test",
-    "build:web:live": "node scripts/build-web.mjs --online=live",
+    "build:web": "node scripts/build-engine.mjs && node scripts/build-web.mjs",
+    "build:web:test": "node scripts/build-engine.mjs && node scripts/build-web.mjs --online=test",
+    "build:web:live": "node scripts/build-engine.mjs && node scripts/build-web.mjs --online=live",
     "start": "npm run build:web && electron .",
     "test:pwa": "node scripts/test-pwa.mjs",
     "test:electron": "node scripts/test-electron.mjs",
@@ -29,11 +29,17 @@
     "test:functions": "node scripts/test-functions.mjs",
     "dist:linux": "npm run build:web && electron-builder --linux AppImage deb --x64",
     "dist:win": "npm run build:web && electron-builder --win portable nsis --x64",
-    "checksums": "node scripts/checksums.mjs"
+    "checksums": "node scripts/checksums.mjs",
+    "build:engine": "node scripts/build-engine.mjs",
+    "build:engine:dev": "node scripts/build-engine.mjs --dev"
   },
   "devDependencies": {
     "electron": "45.0.0",
     "electron-builder": "26.18.0",
+    "esbuild": "^0.28.2",
     "playwright": "1.64.1"
+  },
+  "dependencies": {
+    "pixi.js": "^8.22.0"
   }
 }

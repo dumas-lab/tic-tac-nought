@@ -9,3 +9,6 @@ dev/tests/__pycache__/
 .env*.local
 .env.supabase.local
 supabase/.env.local
+
+canvas.js
+canvas.js.map

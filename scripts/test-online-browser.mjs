@@ -1,5 +1,5 @@
 /*
- * Browser-level online tests for 0.3.1.
+ * Browser-level online tests for 0.3.3.
  *
  * Run against a test build:
  *   npm run build:web:test
@@ -155,7 +155,7 @@ await new Promise((resolve, reject) => {
   server.once("error", reject);
   server.listen(8080, "127.0.0.1", resolve);
 });
-const base = "http://127.0.0.1:8080/";
+const base = "http://127.0.0.1:8080/?canvas=off";
 
 const browser = await chromium.launch({ headless: true });
 const contexts = [];
@@ -256,7 +256,7 @@ try {
       route.fulfill({
         status: 200,
         contentType: "application/javascript; charset=utf-8",
-        body: 'window.TTN_ONLINE_CONFIG = Object.freeze({ enabled: false, supabaseUrl: "", supabaseAnonKey: "", version: "0.3.1" });'
+        body: 'window.TTN_ONLINE_CONFIG = Object.freeze({ enabled: false, supabaseUrl: "", supabaseAnonKey: "", version: "0.3.3" });'
       })
     );
     await page.goto(base, { waitUntil: "networkidle" });

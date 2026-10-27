@@ -5,6 +5,7 @@ import http from "node:http";
 import path from "node:path";
 
 const root = path.join(process.cwd(), "dist", "web");
+const pkg = JSON.parse(await readFile(path.join(process.cwd(), "package.json"), "utf8"));
 const mime = {
   ".html": "text/html; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",
@@ -38,7 +39,7 @@ const server = http.createServer(async (req, res) => {
 
 await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
 const { port } = server.address();
-const url = `http://127.0.0.1:${port}/`;
+const url = `http://127.0.0.1:${port}/?canvas=off`;
 const errors = [];
 let browser;
 
@@ -75,7 +76,7 @@ try {
     };
   });
   if (!swState.active) throw new Error("service worker is not active");
-  if (!swState.caches.includes("ttn-0.3.1")) throw new Error("expected cache was not created");
+  if (!swState.caches.includes(`ttn-${pkg.version}`)) throw new Error("expected cache was not created");
 
   await page.click('[data-start="endless"]');
   await page.waitForSelector("#gameScreen:not([hidden])");

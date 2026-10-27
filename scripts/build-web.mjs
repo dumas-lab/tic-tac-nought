@@ -84,6 +84,7 @@ await cp(path.join(root, "assets"), path.join(dist, "assets"), { recursive: true
 await cp(path.join(root, "web", "manifest.json"), path.join(dist, "manifest.json"));
 await cp(path.join(root, "web", "pwa.js"), path.join(dist, "pwa.js"));
 await cp(path.join(root, "online.js"), path.join(dist, "online.js"));
+await cp(path.join(root, "canvas.js"), path.join(dist, "canvas.js"));
 
 for (const page of ["privacy.html", "terms.html"]) {
   try {
@@ -99,10 +100,7 @@ await writeFile(
     `window.TTN_ONLINE_CONFIG = Object.freeze(${JSON.stringify(onlineConfig, null, 2)});\n`
 );
 
-await mkdir(path.join(dist, "icons"), { recursive: true });
-for (const icon of ["icon-32.png", "icon-180.png", "icon-192.png", "icon-512.png", "icon-maskable-512.png"]) {
-  await cp(path.join(root, "web", "icons", icon), path.join(dist, "icons", icon));
-}
+await cp(path.join(root, "web", "icons"), path.join(dist, "icons"), { recursive: true });
 
 let index = await readFile(path.join(dist, "index.html"), "utf8");
 const scriptHashes = [];

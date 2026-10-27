@@ -1,6 +1,6 @@
 # Tic Tac Nought
 
-**Pre-alpha 0.3.1 — The Body** — a tic-tac-toe roguelite about the thing that kept O.
+**Pre-alpha 0.3.3 — The Carved Body** — a tic-tac-toe roguelite about the thing that kept O.
 
 Play in the browser: **https://dumas-lab.github.io/tic-tac-nought/**
 
@@ -10,7 +10,7 @@ first visit.
 
 The web/PWA build also has optional online accounts, a global Endless damage
 board, and account-only save sync. Local play never requires an account or a
-network connection. The Linux and Windows builds stay local-only in 0.3.1.
+network connection. The Linux and Windows builds stay local-only in 0.3.3.
 
 ## Play
 
@@ -29,6 +29,19 @@ Check the published `SHA256SUMS` file if you want to verify a download.
 Updates are manual: download a newer release and replace the old copy. Saves
 live in the app's local storage and survive replacing the program files.
 
+## Visuals
+
+0.3.3 draws the game on a full-window canvas as a carved-walnut tic-tac-toe set
+infected by Nought's biomechanical growth. The menu, board, graft trays, Book of
+Decay, Options, and the online panels share the same style. Cinzel headings and
+Source Sans 3 body text ship with the game.
+
+Motion is moderate: piece placement, infection growth, embers, and the sins'
+idle animations. `prefers-reduced-motion: reduce` turns off the idle and ambient
+animation while keeping essential feedback. If WebGL2 is unavailable, the game
+falls back to the plain DOM interface; `?canvas=off` forces that mode for
+troubleshooting.
+
 ## Modes
 
 The game opens on a menu:
@@ -44,7 +57,7 @@ Leaving a run with **Menu** does not end it. Reloading the page returns to the m
 
 Online is optional and pre-alpha. Story, VS, the damage ledger, and export/import
 work without an account or a network connection. The desktop builds do not
-include the online UI in 0.3.1.
+include the online UI in 0.3.3.
 
 - **Accounts** — a handle and password, with no email. Handles are 3–20 letters,
   numbers, underscores, or hyphens; passwords are 8–128 characters. Sign in,
@@ -344,8 +357,8 @@ only happens after approval.
   to work, and the daily health ping reduces the chance of a pause.
 - Accounts have no email address, so password resets are handled manually by
   the maintainer.
-- Desktop 0.3.1 is local-only. The online UI is functional but not the final
-  visual treatment; the biomechanical-terminal rework is planned for 0.3.2.
+- Desktop 0.3.3 is local-only and shares the carved-wood canvas visuals with the
+  web/PWA build.
 
 ## Dev tests
 

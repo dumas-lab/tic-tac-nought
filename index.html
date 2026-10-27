@@ -7,11 +7,43 @@
 <meta name="theme-color" content="#14100f">
 <meta name="color-scheme" content="dark">
 <link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 <title>Tic Tac Nought</title>
 <style>
+  @font-face {
+    font-family: "Cinzel";
+    src: url("assets/fonts/cinzel-latin-400-normal.woff2") format("woff2");
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: "Cinzel";
+    src: url("assets/fonts/cinzel-latin-600-normal.woff2") format("woff2");
+    font-weight: 600; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: "Cinzel";
+    src: url("assets/fonts/cinzel-latin-700-normal.woff2") format("woff2");
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: "Source Sans 3";
+    src: url("assets/fonts/source-sans-3-latin-400-normal.woff2") format("woff2");
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: "Source Sans 3";
+    src: url("assets/fonts/source-sans-3-latin-600-normal.woff2") format("woff2");
+    font-weight: 600; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: "Source Sans 3";
+    src: url("assets/fonts/source-sans-3-latin-700-normal.woff2") format("woff2");
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+
   :root {
     --bg: #14100f;
     --surface: #201b19;
@@ -1535,6 +1567,36 @@
   @media (prefers-reduced-motion: reduce) {
     * { transition-duration: 0.01ms !important; }
   }
+
+  /* Canvas renderer: the DOM stays as the accessible model; PixiJS draws it. */
+  #canvas-root {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #120c08;
+  }
+  #canvas-root canvas { display: block; width: 100%; height: 100%; }
+  body.canvas-mode {
+    display: block;
+    overflow: hidden;
+    padding: 0;
+    background: #120c08;
+  }
+  body.canvas-mode #canvas-root { display: block; }
+  body.canvas-mode #menuScreen,
+  body.canvas-mode #gameScreen,
+  body.canvas-mode #optionsScreen,
+  body.canvas-mode .modal,
+  body.canvas-mode .toast,
+  body.canvas-mode #powerTip,
+  body.canvas-mode #optionsTopBtn,
+  body.canvas-mode #devToolsBtn,
+  body.canvas-mode #sinWorkingIndicator,
+  body.canvas-mode #devLogPanel {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
 </style>
 </head>
 <body>
@@ -1563,7 +1625,7 @@
     </details>
 
     <div class="menu-card" style="flex:0 0 auto;">
-      <p class="eyebrow">Pre-alpha 0.3.1</p>
+      <p class="eyebrow">Pre-alpha 0.3.3</p>
       <h1>Tic Tac Nought</h1>
       <p class="menu-tag">Tic-tac-toe that keeps growing. Build a run, collect powers, chase the score.</p>
       <div class="menu-buttons">
@@ -1913,6 +1975,8 @@
     </div>
   </div>
 
+  <div id="canvas-root" aria-hidden="true"><canvas id="game-canvas"></canvas></div>
+
   <script src="assets/sounds/manifest.js"></script>
 <script src="pwa.js" defer></script>
   <script src="online-config.js"></script>
@@ -1921,7 +1985,7 @@
     const STORAGE_KEY = "ttn-state-v2";
     const LEADERBOARD_KEY = "ttn-leaderboard-v1";
     const SOUND_KEY = "ttn-sound-v1";
-    const GAME_VERSION = "0.3.1";
+    const GAME_VERSION = "0.3.3";
     const DEVTOOLS_KEY = "ttn-devtools-v1";
     const WISHLIST_KEY = "ttn-wishlist-v1";
     const LEGACY_STORAGE_KEYS = {
@@ -5530,7 +5594,7 @@
       menuScreen.classList.toggle("erupted", !!eruptedSession);
       const eyebrow = menuScreen.querySelector(".eyebrow");
       const tag = menuScreen.querySelector(".menu-tag");
-      if (eyebrow) eyebrow.textContent = eruptedSession ? "Pre-alpha 0.3.1 — The Body" : "Pre-alpha 0.3.1";
+      if (eyebrow) eyebrow.textContent = eruptedSession ? "Pre-alpha 0.3.3 — The Carved Body" : "Pre-alpha 0.3.3";
       if (tag) tag.textContent = eruptedSession
         ? "The table is open. Nought is inside it."
         : "Tic-tac-toe that keeps growing. Build a run, collect powers, chase the score.";
@@ -6503,9 +6567,85 @@
     prepareIdleBoard();
     showScreen("menu");
     render();
+
+    /* ---------- canvas bridge ---------- */
+
+    window.TTNState = {
+      get board() { return board; },
+      get turn() { return turn; },
+      get gameOver() { return gameOver; },
+      get result() { return result; },
+      get winLine() { return winLine; },
+      get mode() { return mode; },
+      get screen() { return screen; },
+      get run() { return run; },
+      get erupted() { return erupted; },
+      get eruptedSession() { return eruptedSession; },
+      get currentSin() { return currentSin; },
+      get sinOrder() { return sinOrder; },
+      get eatenCells() { return eatenCells; },
+      get previewIndex() { return previewIndex; },
+      get previewReply() { return previewReply; },
+      get previewReplyThreat() { return previewReplyThreat; },
+      get previewWin() { return previewWin; },
+      get scores() { return scores; },
+      get leaderboard() { return leaderboard; },
+      get storyProgress() { return storyProgress; },
+      get endlessSinIndex() { return endlessSinIndex; },
+      get storySinIndex() { return storySinIndex; },
+      get sinRound() { return sinRound; },
+      get noughtDamage() { return noughtDamage; },
+      get noughtDamageTarget() { return noughtDamageTarget; },
+      get awaitingNext() { return awaitingNext; },
+      get pendingGrowth() { return pendingGrowth; },
+      get aterArmed() { return aterArmed; },
+      get tipPinned() { return tipPinned; },
+      data: {
+        POWERUPS,
+        POWER_BY_ID,
+        SINS,
+        RARITY_ORDER,
+        RARITY_LABEL
+      },
+      helpers: {
+        boardSize,
+        activeSin,
+        activeSinRound,
+        isNoughtRound,
+        canPlayCell,
+        powerState,
+        powerTooltipState,
+        powerGlyph,
+        formatScore,
+        rarityPercent,
+        isSinMode,
+        isComputer,
+        observationActive,
+        crossTierLabel,
+        maxCrossTier,
+        isPlusDormant
+      },
+      actions: {
+        startMode,
+        toMenu,
+        handleCell,
+        beginRun,
+        resetAll,
+        showScreen,
+        showConfirm,
+        showToast,
+        renderGuide,
+        openOptions,
+        setPreview,
+        clearPreview,
+        render,
+        updateMenuForm,
+        renderBoard
+      }
+    };
   </script>
 
-
+  <script type="module" src="canvas.js"></script>
 
 
 

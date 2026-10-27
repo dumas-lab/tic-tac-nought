@@ -1,6 +1,92 @@
 # Tic Tac Nought — Changelog
 
-## 0.3.1 "The Body" — Online (current build)
+## 0.3.3 "The Carved Body" — Visual engine (current build)
+
+Everything in 0.3.1 remains unless this section changes it. 0.3.3 replaces the
+DOM presentation with a full-window canvas engine. Rules, scoring, saves, the
+save format, and online behavior are unchanged.
+
+### Visual engine
+- The interface is drawn by PixiJS 8.22.0 on one full-screen WebGL2 canvas.
+  `canvas.js` is bundled by esbuild from `src/canvas/`.
+- The hidden DOM remains the model and the accessible/focus layer. Canvas
+  controls invoke the existing DOM actions, so the canvas is a presentation
+  layer, not a second game implementation.
+- If WebGL or the canvas bundle fails to start, the game removes the canvas and
+  keeps the functional DOM interface. `?canvas=off` (or `?dom=1`) forces that
+  mode for testing and troubleshooting.
+- Canvas rendering is capped at 2× device pixel ratio and resizes with the
+  window. The board stays top-down/2.5D for touch accuracy; depth comes from
+  bevels, shadows, layered props, and lighting.
+
+### Theme and art direction
+- A deluxe carved-wood tic-tac-toe set: dark walnut, carved panels, gilt trim,
+  parchment text, rust X, steel O, and bile-green infection.
+- Nought is an oversized carved O idol that has erupted with biomechanical
+  growth. The old human bust and eye icon are gone. The menu has a calm carved
+  state and a distinct erupted state as the run progresses.
+- The seven sins appear as carved reliefs with random idle motion. There are no
+  new magic concepts; the infection only hints at what Nought is becoming.
+- X and O remain letters. No religious iconography.
+- **Typography:** Cinzel for display headings and Source Sans 3 for body text,
+  self-hosted from `assets/fonts/` under the SIL Open Font License. Fonts ship
+  in the build; the game makes no third-party font requests.
+
+### Screens and layout
+- Menu, Story difficulty, game HUD, board, graft trays, Book of Decay, Options,
+  continue, confirm, choice, wishlist, dev tools, and every online surface use
+  the new style. Online surfaces include the account bar, global board, sign-in
+  and registration modal, and account modal.
+- The menu is laid out relative to the carved box: side panels, center content,
+  online bar, and idol. Desktop and mobile have separate compositions.
+- On desktop, carved graft trays flank the board and the idol sits fully visible
+  in the right gap. On mobile, a tall tray with empty slot cutouts sits above
+  the board and the idol peeks over the board's top-right corner.
+- Options keeps export/import, volume, mute, score sounds, and dev tools in the
+  carved/parchment language.
+- Online rows, guest badges, claim controls, and save-sync actions keep their
+  0.3.1 behavior and now render in the same visual language as local play.
+
+### Motion and accessibility
+- Motion is medium: piece placement, infection growth, embers, light drift, and
+  random idle animations for the sins. `prefers-reduced-motion: reduce` turns
+  the idle and ambient animation off while keeping essential feedback.
+- Text entry still uses the hidden DOM inputs. Canvas fields draw the caret and
+  selection from the focused DOM element, so typing, paste, and autofill work.
+- Buttons and modals keep their DOM labels and actions behind the canvas.
+
+### Builds
+- `npm run build:web` builds the local-only web app. `build:web:test` and
+  `build:web:live` build against the separate online projects and add only that
+  Supabase origin to the CSP `connect-src`.
+- Every web build now runs `build:engine` first, then copies `canvas.js` and the
+  icon set into `dist/web`. `build:engine:dev` writes an inline source map.
+- The CSP still allows only same-origin assets. PixiJS is loaded through
+  `pixi.js/unsafe-eval`; no `unsafe-eval` permission is added to the page.
+- Desktop builds still use `build:web` and therefore stay local-only.
+- Release artifacts, app IDs, executable names, checksums, and the manual update
+  path are unchanged from 0.3.1.
+
+### Unchanged from 0.3.1
+- Modes, rules, scoring, grafts, Story chapters, Endless progression, the
+  dead-line rule, and the eruption rules are unchanged.
+- Save keys, the save format, legacy migration, and export/import are unchanged;
+  existing 0.3.1 saves load without conversion.
+- Accounts, guests, the global board, submission rules, save sync, conflicts,
+  moderation, and the 30-second visible-only poll are unchanged.
+- Desktop remains local-only with no online UI.
+
+### Known limits in 0.3.3
+- The new art needs WebGL2. Without it the game falls back to the plain DOM
+  layout, which is fully playable but does not show the carved-wood visuals.
+- Software-rendered WebGL (for example headless Chromium with SwiftShader) is
+  much slower than a normal GPU and is not representative of player performance.
+- The seven sin reliefs and ambient effects are decorative. Reduced motion
+  removes their idle animation.
+- The online UI is now visually complete for this pre-alpha, but accounts,
+  moderation, and sync remain pre-alpha services.
+
+## 0.3.1 "The Body" — Online (previous build)
 
 Everything in 0.3 remains unless this section changes it. 0.3.1 adds optional
 online accounts, guest score submission, the global Endless damage board, and
@@ -185,10 +271,10 @@ builds stay local-only.
 - Desktop 0.3.1 has no online features.
 - Browser storage can be cleared by the browser or the user. Export saves for
   anything important.
-- The online UI is functional for 0.3.1. The biomechanical-terminal visual
-  rework is planned for 0.3.2.
+- The online UI was functional for 0.3.1. The carved-wood visual rework
+  shipped in 0.3.3.
 
-## 0.3 "The Body" (previous build)
+## 0.3 "The Body" (older build)
 
 ### Distribution and packaging
 - Public name: **Tic Tac Nought**. In-game Nought, the entity, is unchanged.

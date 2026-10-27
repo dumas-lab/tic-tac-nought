@@ -6,5 +6,5 @@ window.TTN_ONLINE_CONFIG = Object.freeze({
   enabled: false,
   supabaseUrl: "",
   supabaseAnonKey: "",
-  version: "0.3.1"
+  version: "0.3.3"
 });

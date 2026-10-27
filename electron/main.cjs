@@ -105,8 +105,8 @@ async function handleAppRequest(request) {
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 1180,
-    height: 860,
+    width: 1360,
+    height: 800,
     minWidth: 360,
     minHeight: 560,
     backgroundColor: "#14100f",
@@ -133,7 +133,8 @@ function createWindow() {
   mainWindow.webContents.setWindowOpenHandler(() => ({ action: "deny" }));
   mainWindow.webContents.on("will-attach-webview", (event) => event.preventDefault());
 
-  mainWindow.loadURL(`${APP_ORIGIN}/index.html`);
+  const testQuery = process.env.TTR_TEST === "1" ? "?canvas=off" : "";
+  mainWindow.loadURL(`${APP_ORIGIN}/index.html${testQuery}`);
   mainWindow.on("closed", () => {
     mainWindow = null;
   });
